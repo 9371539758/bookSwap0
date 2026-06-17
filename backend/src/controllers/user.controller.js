@@ -135,7 +135,6 @@ const getme = async (req, res) => {
     });
   }
 };
-
 // logout controller
 const logout = async (req, res) => {
   try {

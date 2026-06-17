@@ -1,0 +1,214 @@
+/**
+ * Navbar Styles
+ * Clean, modern navigation bar with responsive design
+ * Uses BEM naming convention for maintainability
+ */
+
+// Colors & Variables
+$primary-color: #2c5f2d;
+$secondary-color: #ff6b6b;
+$text-dark: #1a1a1a;
+$text-light: #666;
+$bg-light: #f8f9fa;
+$border-color: #e0e0e0;
+$shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+// Scroll Animations
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+// Navbar Container
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(210, 179, 179, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(224, 224, 224, 0.3);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  animation: slideDown 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+
+  &--hidden {
+    animation: slideUp 0.3s ease-in-out forwards;
+  }
+
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+    }
+  }
+}
+
+// Logo
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $primary-color;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+  margin-right: auto;
+
+  &:hover {
+    transform: scale(1.05);
+    color: $secondary-color;
+  }
+
+  &-icon {
+    font-size: 2rem;
+  }
+
+  &-text {
+    letter-spacing: 0.5px;
+  }
+}
+
+// Navigation Menu
+.navbar__menu {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.navbar__item {
+  position: relative;
+}
+
+.navbar__link {
+  color: $text-dark;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  padding-bottom: 0.5rem;
+
+  &:hover {
+    color: $primary-color;
+    border-bottom: 2px solid $primary-color;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+// Auth Section
+.navbar__auth {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+.navbar__user-greeting {
+  color: $text-light;
+  font-size: 0.9rem;
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+// Buttons
+.navbar__btn {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  &--login {
+    background-color: transparent;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+
+    &:hover {
+      background-color: $primary-color;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(44, 95, 45, 0.2);
+    }
+  }
+
+  &--signup {
+    background-color: $primary-color;
+    color: white;
+    border: 2px solid $primary-color;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(44, 95, 45, 0.3);
+    }
+  }
+
+  &--logout {
+    background-color: $secondary-color;
+    color: white;
+    border: 2px solid $secondary-color;
+
+    &:hover {
+      background-color: darken($secondary-color, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+    }
+  }
+}
