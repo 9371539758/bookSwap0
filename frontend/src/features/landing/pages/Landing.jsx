@@ -18,10 +18,10 @@ const Landing = () => {
           {/* Left Info Section */}
           <div className="hero__left">
             <div className="hero__info">
-              <p className="hero__year">EST 2010</p>
+              <p className="hero__year">EST 2026</p>
               <p className="hero__description">
-                Unique ceramics<br />
-                and pottery shop
+                Unique Books<br />
+                and philosophy shop
               </p>
               <p className="hero__mission">
                 Our mission is<br />
