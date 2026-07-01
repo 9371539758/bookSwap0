@@ -4,12 +4,12 @@ const bcrypt = require("bcrypt");
 const redis = require("../config/cache");
 const register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, fullName, email, password, phone, location } = req.body;
 
     // Validate input
-    if (!username || !email || !password) {
+    if (!username || !fullName || !email || !password) {
       return res.status(400).json({
-        message: "username, email, and password are required",
+        message: "username, full name, email, and password are required",
       });
     }
 
@@ -25,30 +25,39 @@ const register = async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
- 
     const user = await userModel.create({
       username: username.trim(),
+      fullName: fullName.trim(),
       email: email.trim(),
       password: hashedPassword,
+      phone: phone?.trim(),
+      location: location?.trim(),
     });
 
     if (!user || !user._id) {
       throw new Error("Failed to save user to database");
     }
 
-    console.log("User registered successfully:", user.username, "ID:", user._id);
+    console.log(
+      "User registered successfully:",
+      user.username,
+      "ID:",
+      user._id,
+    );
 
     res.status(201).json({
       message: "user created successfully",
       user: {
         id: user._id,
         username: user.username,
+        fullName: user.fullName,
         email: user.email,
+        phone: user.phone,
+        location: user.location,
       },
     });
   } catch (error) {
     console.error("Register error:", error.message);
-    
 
     if (error.code === 11000) {
       const field = Object.keys(error.keyPattern)[0];
@@ -56,7 +65,7 @@ const register = async (req, res) => {
         message: `${field} already exists`,
       });
     }
-    
+
     res.status(400).json({
       message: error.message || "Registration failed",
     });
@@ -112,7 +121,10 @@ const login = async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
+        fullName: user.fullName,
         email: user.email,
+        phone: user.phone,
+        location: user.location,
         token: token,
       },
     });
@@ -125,7 +137,9 @@ const login = async (req, res) => {
 };
 const getme = async (req, res) => {
   try {
-    const user = await userModel.findById(req.user.id);
+    const user = await userModel
+      .findById(req.user.id)
+      .select("username fullName email phone location");
     res.status(200).json({
       user: user,
     });
