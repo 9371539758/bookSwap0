@@ -1,14 +1,24 @@
 import axios from "axios";
 const api = axios.create({
-  baseURL: "http://localhost:3000",
-  withCredentials: true,
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000", // backend API server
+  withCredentials: true, // send cookies from backend on login
 });
 
-export const register = async ({ username, email, password }) => {
+export const register = async ({
+  username,
+  fullName,
+  email,
+  password,
+  phone,
+  location,
+}) => {
   const response = await api.post("/api/auth/register", {
     username,
+    fullName,
     email,
     password,
+    phone,
+    location,
   });
   return response.data;
 };

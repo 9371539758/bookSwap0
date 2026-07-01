@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import "../styles/landing.scss";
 
 /**
@@ -10,8 +9,6 @@ const Landing = () => {
 
   return (
     <div className="landing">
-      <Navbar />
-
       {/* Hero Section */}
       <section className="hero">
         <div className="hero__wrapper">

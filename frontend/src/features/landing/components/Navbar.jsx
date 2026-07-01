@@ -77,8 +77,20 @@ const Navbar = () => {
           {user ? (
             <>
               <span className="navbar__user-greeting">
-                Welcome, {user.name || user.email}
+                Welcome, {user.fullName || user.email}
               </span>
+              <button
+                className="navbar__btn navbar__btn--secondary"
+                onClick={() => navigate("/add-book")}
+              >
+                Sell Book
+              </button>
+              <button
+                className="navbar__btn navbar__btn--secondary"
+                onClick={() => navigate("/my-books")}
+              >
+                My Books
+              </button>
               <button
                 className="navbar__btn navbar__btn--logout"
                 onClick={handleLogout}

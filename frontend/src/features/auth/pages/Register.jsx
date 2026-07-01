@@ -9,17 +9,27 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
-  const{loading,handleRegister} = useAuth();
-   const navigate = useNavigate();
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const { loading, handleRegister } = useAuth();
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
-   await handleRegister({
-    username: name,
-    email,
-    password
-});
+
+    if (password !== confirm) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    await handleRegister({
+      username: name,
+      fullName: name,
+      email,
+      password,
+      phone,
+      location,
+    });
     navigate("/");
   };
 
@@ -50,6 +60,26 @@ const Register = () => {
                 placeholder="Enter your e-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className="field">
+              <label>Phone</label>
+              <input
+                type="text"
+                placeholder="Enter your phone number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+
+            <div className="field">
+              <label>Location</label>
+              <input
+                type="text"
+                placeholder="Enter your location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
               />
             </div>
 
